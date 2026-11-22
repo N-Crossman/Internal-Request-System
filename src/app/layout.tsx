@@ -1,16 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Barlow, Oswald } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// next/font downloads these at build time and serves them from our own domain:
+// no request to Google from the browser, and no layout jump while fonts load.
+// Both are under the SIL Open Font License.
+
+// Bold condensed face for headings, for a scoreboard feel.
+const oswald = Oswald({
+  variable: "--font-oswald",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Clean, slightly sporty face for body text.
+const barlow = Barlow({
+  variable: "--font-barlow",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -22,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`dark ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`dark ${oswald.variable} ${barlow.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <header className="border-b border-neutral-200 dark:border-neutral-800">
