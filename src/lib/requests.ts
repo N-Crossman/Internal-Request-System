@@ -7,7 +7,7 @@
 
 import { and, asc, desc, eq, sql, type SQL } from "drizzle-orm";
 import { z } from "zod";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { requests, statusHistory, type Request, type StatusHistoryEntry } from "@/db/schema";
 import type { RequestStatus, RequestType } from "./constants";
 import type { CreateRequestInput } from "./validation";
@@ -20,7 +20,7 @@ export type UpdateStatusResult =
 
 // Saves a new request and its first history row (none -> new) together.
 export async function createRequest(input: CreateRequestInput): Promise<Request> {
-  return db.transaction(async (tx) => {
+  return getDb().transaction(async (tx) => {
     const [request] = await tx.insert(requests).values(input).returning();
     await tx.insert(statusHistory).values({
       requestId: request.id,
@@ -39,7 +39,7 @@ export async function listRequests(
   if (filters.status) conditions.push(eq(requests.status, filters.status));
   if (filters.type) conditions.push(eq(requests.type, filters.type));
 
-  return db
+  return getDb()
     .select()
     .from(requests)
     .where(and(...conditions))
@@ -51,10 +51,10 @@ export async function getRequest(id: string): Promise<RequestWithHistory | null>
   // A malformed id can never match, and Postgres would reject it with an error.
   if (!z.uuid().safeParse(id).success) return null;
 
-  const [request] = await db.select().from(requests).where(eq(requests.id, id));
+  const [request] = await getDb().select().from(requests).where(eq(requests.id, id));
   if (!request) return null;
 
-  const history = await db
+  const history = await getDb()
     .select()
     .from(statusHistory)
     .where(eq(statusHistory.requestId, id))
@@ -66,7 +66,7 @@ export async function getRequest(id: string): Promise<RequestWithHistory | null>
 // Changes a request's status and records the change, all in one transaction:
 // either both the request and its history row are saved, or neither is.
 export async function updateStatus(id: string, next: RequestStatus): Promise<UpdateStatusResult> {
-  return db.transaction(async (tx) => {
+  return getDb().transaction(async (tx) => {
     // FOR UPDATE locks this row until the transaction ends, so two people changing
     // the same request at once are handled one after the other, and each sees the
     // status the other one saved.
