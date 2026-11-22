@@ -8,7 +8,7 @@ export default function NewRequestPage() {
     <div className="flex max-w-2xl flex-col gap-6">
       <div className="flex flex-col gap-1">
         <h1 className="text-2xl font-bold">New request</h1>
-        <p className="text-sm text-neutral-500">
+        <p className="text-sm text-muted">
           Tell the Digital Technology team what you need. All fields are required except priority.
         </p>
       </div>

@@ -21,7 +21,7 @@ export function StatusForm({ id, status }: { id: string; status: RequestStatus }
             name="status"
             defaultValue={status}
             aria-describedby={state.error ? "status-error" : undefined}
-            className="min-h-11 rounded-md border border-neutral-300 bg-transparent px-3 dark:border-neutral-700"
+            className="min-h-11 rounded-md border border-line bg-raised px-3"
           >
             {REQUEST_STATUSES.map((s) => (
               <option key={s} value={s}>
@@ -33,12 +33,12 @@ export function StatusForm({ id, status }: { id: string; status: RequestStatus }
         <button
           type="submit"
           disabled={pending}
-          className="min-h-11 rounded-md bg-neutral-900 px-4 text-sm font-medium text-white hover:bg-neutral-700 disabled:opacity-60 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+          className="min-h-11 rounded-md bg-flame px-4 text-sm font-semibold text-white hover:bg-flame/85 disabled:opacity-60"
         >
           {pending ? "Saving…" : "Save status"}
         </button>
       </div>
-      <p id="status-error" aria-live="polite" className="text-sm text-red-700 dark:text-red-400">
+      <p id="status-error" aria-live="polite" className="text-sm text-flame-ink">
         {state.error ?? ""}
       </p>
     </form>

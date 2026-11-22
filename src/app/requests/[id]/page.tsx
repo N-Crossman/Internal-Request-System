@@ -17,7 +17,7 @@ export default function RequestDetailPage({ params }: PageProps<"/requests/[id]"
       </Link>
       {/* The id comes from the URL and the request from the database, both at
           request time, so the details stream in behind this boundary. */}
-      <Suspense fallback={<p className="text-neutral-500">Loading request…</p>}>
+      <Suspense fallback={<p className="text-muted">Loading request…</p>}>
         <RequestDetail params={params} />
       </Suspense>
     </div>
@@ -42,7 +42,7 @@ async function RequestDetail({ params }: { params: Params }) {
         <p className="whitespace-pre-wrap">{request.description}</p>
       </div>
 
-      <dl className="grid grid-cols-1 gap-x-6 gap-y-3 rounded-md border border-neutral-200 p-4 text-sm sm:grid-cols-2 dark:border-neutral-800">
+      <dl className="grid grid-cols-1 gap-x-6 gap-y-3 rounded-md border border-line bg-surface p-4 text-sm sm:grid-cols-2">
         <Detail label="Type" value={TYPE_LABELS[request.type]} />
         <Detail label="Priority" value={PRIORITY_LABELS[request.priority]} />
         <Detail label="Requested by" value={request.requesterName} />
@@ -61,7 +61,7 @@ async function RequestDetail({ params }: { params: Params }) {
         <h2 id="history-heading" className="text-lg font-semibold">
           History
         </h2>
-        <ol className="flex flex-col gap-3 border-l-2 border-neutral-200 pl-4 dark:border-neutral-800">
+        <ol className="flex flex-col gap-3 border-l-2 border-gold/50 pl-4">
           {request.history.map((entry) => (
             <li key={entry.id} className="flex flex-col gap-0.5">
               <span className="text-sm font-medium">
@@ -69,7 +69,7 @@ async function RequestDetail({ params }: { params: Params }) {
                   ? `Created as ${STATUS_LABELS[entry.toStatus]}`
                   : `${STATUS_LABELS[entry.fromStatus]} → ${STATUS_LABELS[entry.toStatus]}`}
               </span>
-              <time dateTime={entry.changedAt.toISOString()} className="text-xs text-neutral-500">
+              <time dateTime={entry.changedAt.toISOString()} className="text-xs text-muted">
                 {formatDateTime(entry.changedAt)}
               </time>
             </li>
@@ -83,7 +83,7 @@ async function RequestDetail({ params }: { params: Params }) {
 function Detail({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-0.5">
-      <dt className="text-neutral-500">{label}</dt>
+      <dt className="text-muted">{label}</dt>
       <dd className="font-medium">{value}</dd>
     </div>
   );

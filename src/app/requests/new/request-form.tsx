@@ -19,7 +19,7 @@ import {
 const initialState: CreateRequestState = {};
 
 const inputClass =
-  "min-h-11 w-full rounded-md border border-neutral-300 bg-transparent px-3 py-2 aria-invalid:border-red-600 dark:border-neutral-700";
+  "min-h-11 w-full rounded-md border border-line bg-raised px-3 py-2 aria-invalid:border-flame";
 
 export function RequestForm() {
   const [state, formAction, pending] = useActionState(createRequestAction, initialState);
@@ -31,7 +31,7 @@ export function RequestForm() {
     // After a failed submit, the key changes so the fields remount with what the
     // user typed.
     <form key={JSON.stringify(values)} action={formAction} className="flex flex-col gap-5" noValidate>
-      <p aria-live="polite" className="text-sm font-medium text-red-700 dark:text-red-400">
+      <p aria-live="polite" className="text-sm font-medium text-flame-ink">
         {hasErrors ? "Please fix the highlighted fields." : ""}
       </p>
 
@@ -117,7 +117,7 @@ export function RequestForm() {
       <button
         type="submit"
         disabled={pending}
-        className="min-h-11 self-start rounded-md bg-neutral-900 px-5 text-sm font-medium text-white hover:bg-neutral-700 disabled:opacity-60 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+        className="min-h-11 self-start rounded-md bg-flame px-5 text-sm font-semibold text-white hover:bg-flame/85 disabled:opacity-60"
       >
         {pending ? "Submitting…" : "Submit request"}
       </button>
@@ -145,7 +145,7 @@ function Field({
       </label>
       {children}
       {error && (
-        <p id={`${id}-error`} className="text-sm text-red-700 dark:text-red-400">
+        <p id={`${id}-error`} className="text-sm text-flame-ink">
           {error[0]}
         </p>
       )}

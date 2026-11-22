@@ -14,14 +14,14 @@ export default function Error({ error, retry }: { error: unknown; retry: () => v
   return (
     <div role="alert" className="flex max-w-xl flex-col items-start gap-4">
       <h1 className="text-2xl font-bold">Something went wrong</h1>
-      <p className="text-neutral-500">
+      <p className="text-muted">
         We could not load this page. Please try again in a moment.
       </p>
       <div className="flex gap-3">
         <button
           type="button"
           onClick={() => retry()}
-          className="min-h-11 rounded-md bg-neutral-900 px-4 text-sm font-medium text-white hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+          className="min-h-11 rounded-md bg-flame px-4 text-sm font-semibold text-white hover:bg-flame/85"
         >
           Try again
         </button>
