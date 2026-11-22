@@ -142,7 +142,13 @@ describe("data layer", { skip: !testDatabaseUrl && "TEST_DATABASE_URL is not set
       for each row execute function fail_history_insert()`;
 
     try {
-      await assert.rejects(lib.updateStatus(created.id, "completed"), /forced failure/);
+      await assert.rejects(lib.updateStatus(created.id, "completed"), (error) => {
+        // Drizzle wraps database errors in its own "Failed query" error and keeps
+        // the original Postgres error as the cause.
+        assert.ok(error instanceof Error);
+        assert.match(String((error.cause as Error | undefined)?.message), /forced failure/);
+        return true;
+      });
     } finally {
       await client`drop trigger fail_history on status_history`;
       await client`drop function fail_history_insert`;
