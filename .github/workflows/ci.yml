@@ -6,6 +6,23 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    # A throwaway Postgres that exists only for this run, matching Neon's major version.
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: requests_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d requests_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/requests_test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -15,4 +32,9 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run typecheck
+      - name: Apply migrations to the test database
+        run: npm run db:migrate
+        env:
+          DATABASE_URL: ${{ env.TEST_DATABASE_URL }}
+      - run: npm test
       - run: npm run build
