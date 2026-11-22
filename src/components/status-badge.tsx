@@ -13,7 +13,7 @@ const STYLES: Record<RequestStatus, string> = {
 export function StatusBadge({ status }: { status: RequestStatus }) {
   return (
     <span
-      className={`inline-flex shrink-0 items-center rounded-sm border px-2 py-0.5 font-display text-xs font-semibold uppercase tracking-widest ${STYLES[status]}`}
+      className={`inline-flex shrink-0 items-center rounded-sm border px-2 py-0.5 font-sans text-xs font-bold uppercase tracking-wider ${STYLES[status]}`}
     >
       {STATUS_LABELS[status]}
     </span>
