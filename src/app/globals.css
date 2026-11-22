@@ -21,8 +21,18 @@
   --color-flame-ink: #ff7b7b; /* red text, readable on dark */
   --color-gold: #f4b942; /* gold accents and focus rings */
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-oswald), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Headings use the condensed display face everywhere, without a class on each one. */
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: 0.01em;
+  }
 }
 
 :root {
