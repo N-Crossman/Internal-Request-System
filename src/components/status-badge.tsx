@@ -1,16 +1,19 @@
 import { STATUS_LABELS, type RequestStatus } from "@/lib/constants";
 
+// Scoreboard-style tiles. The statuses differ by fill style (outline, solid,
+// muted) as well as colour, and always show the word, so status is never
+// conveyed by colour alone. Contrast: gold on dark 10:1, white on red 5.3:1,
+// muted on raised 6.9:1.
 const STYLES: Record<RequestStatus, string> = {
-  new: "bg-blue-100 text-blue-900 dark:bg-blue-950 dark:text-blue-200",
-  in_progress: "bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-200",
-  completed: "bg-green-100 text-green-900 dark:bg-green-950 dark:text-green-200",
+  new: "border-gold text-gold",
+  in_progress: "border-flame bg-flame text-white",
+  completed: "border-line bg-raised text-muted",
 };
 
-// Always shows the word as well as the colour, so status is never conveyed by colour alone.
 export function StatusBadge({ status }: { status: RequestStatus }) {
   return (
     <span
-      className={`inline-flex shrink-0 items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${STYLES[status]}`}
+      className={`inline-flex shrink-0 items-center rounded-sm border px-2 py-0.5 font-display text-xs font-semibold uppercase tracking-widest ${STYLES[status]}`}
     >
       {STATUS_LABELS[status]}
     </span>
