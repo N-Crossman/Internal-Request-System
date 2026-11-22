@@ -25,11 +25,11 @@ describe("data layer", { skip: !testDatabaseUrl && "TEST_DATABASE_URL is not set
   // Loaded in before(), after DATABASE_URL points at the test database, so the
   // app's database client can only ever connect there.
   let lib: typeof import("./requests");
-  let client: typeof import("@/db").client;
+  let client: ReturnType<typeof import("@/db").getClient>;
 
   before(async () => {
     process.env.DATABASE_URL = testDatabaseUrl;
-    ({ client } = await import("@/db"));
+    client = (await import("@/db")).getClient();
     lib = await import("./requests");
   });
 

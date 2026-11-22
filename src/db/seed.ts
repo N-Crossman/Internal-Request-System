@@ -4,7 +4,7 @@
 import "dotenv/config";
 import { count } from "drizzle-orm";
 import type { RequestPriority, RequestStatus, RequestType } from "../lib/constants";
-import { client, db } from "./index";
+import { getClient, getDb } from "./index";
 import { requests, statusHistory } from "./schema";
 
 type SeedRequest = {
@@ -116,6 +116,7 @@ function daysAgo(days: number): Date {
 }
 
 async function main() {
+  const db = getDb();
   const [{ total }] = await db.select({ total: count() }).from(requests);
   if (total > 0) {
     console.log(`Skipped: the requests table already has ${total} rows.`);
@@ -162,4 +163,4 @@ main()
     console.error(error);
     process.exitCode = 1;
   })
-  .finally(() => client.end());
+  .finally(() => getClient().end());
