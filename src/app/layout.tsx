@@ -32,15 +32,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`dark ${oswald.variable} ${barlow.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <header className="border-b border-neutral-200 dark:border-neutral-800">
+        <header className="border-b border-line bg-surface">
           <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-4 py-3">
             <Link href="/" className="flex flex-col leading-tight">
-              <span className="text-lg font-bold">Assist</span>
-              <span className="text-xs text-neutral-500">Digital Technology Requests</span>
+              <span className="font-display text-xl font-bold uppercase tracking-wider">Assist</span>
+              <span className="text-xs text-muted">Digital Technology Requests</span>
             </Link>
             <Link
               href="/requests/new"
-              className="inline-flex min-h-11 items-center rounded-md bg-neutral-900 px-4 text-sm font-medium text-white hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+              className="inline-flex min-h-11 items-center rounded-md bg-flame px-4 text-sm font-semibold text-white hover:bg-flame/85"
             >
               New request
             </Link>

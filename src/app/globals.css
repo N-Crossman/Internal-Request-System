@@ -27,6 +27,16 @@
 
 /* Headings use the condensed display face everywhere, without a class on each one. */
 @layer base {
+  /* A clear gold ring on whatever has keyboard focus (links, buttons, fields). */
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+
+  a:hover {
+    color: var(--color-gold);
+  }
+
   h1,
   h2,
   h3 {
