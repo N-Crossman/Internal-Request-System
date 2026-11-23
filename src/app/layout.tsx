@@ -53,6 +53,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               Cards, panels and fields have their own solid backgrounds on top. */}
           <div className="absolute inset-0 bg-linear-to-b from-canvas/90 via-canvas/80 to-canvas/90" />
         </div>
+        {/* The site is public and has no login, so anyone with the link can read and
+            add requests. This tells visitors not to enter anything real. */}
+        <div className="border-b border-gold/40 bg-canvas px-4 py-2 text-center text-sm text-gold">
+          <strong className="font-semibold">Demo app.</strong> Use fake data only; do not enter
+          personal information.
+        </div>
         {/* A mostly solid bar rather than a backdrop blur: blurred layers often
             render the text on top of them less sharply. */}
         <header className="border-b-2 border-flame bg-canvas/85">
